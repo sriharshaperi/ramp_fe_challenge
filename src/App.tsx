@@ -14,19 +14,19 @@ export function App() {
   const { data: transactionsByEmployee, ...transactionsByEmployeeUtils } = useTransactionsByEmployee()
   const [isLoading, setIsLoading] = useState(false)
 
-  const transactions = useMemo(() => paginatedTransactions?.data ?? transactionsByEmployee ?? null, [
-    paginatedTransactions,
-    transactionsByEmployee,
-  ])
+  const transactions = useMemo(
+    () => paginatedTransactions?.data ?? transactionsByEmployee ?? null,
+    [paginatedTransactions, transactionsByEmployee]
+  )
 
   const loadAllTransactions = useCallback(async () => {
     setIsLoading(true)
-    // transactionsByEmployeeUtils.invalidateData()
+    transactionsByEmployeeUtils.invalidateData()
 
     await employeeUtils.fetchAll()
-    setIsLoading(false)
-
     await paginatedTransactionsUtils.fetchAll()
+
+    setIsLoading(false)
   }, [employeeUtils, paginatedTransactionsUtils, transactionsByEmployeeUtils])
 
   const loadTransactionsByEmployee = useCallback(
@@ -34,14 +34,14 @@ export function App() {
       paginatedTransactionsUtils.invalidateData()
       await transactionsByEmployeeUtils.fetchById(employeeId)
     },
-    [paginatedTransactionsUtils, transactionsByEmployeeUtils, transactions]
+    [paginatedTransactionsUtils, transactionsByEmployeeUtils]
   )
 
   useEffect(() => {
     if (employees === null && !employeeUtils.loading) {
       loadAllTransactions()
     }
-  }, [employeeUtils.loading, employees, loadAllTransactions, transactions])
+  }, [employeeUtils.loading, employees, loadAllTransactions])
 
   return (
     <Fragment>
@@ -64,9 +64,8 @@ export function App() {
             if (newValue === null) {
               return
             }
-            newValue.id !== ""
-              ? await loadTransactionsByEmployee(newValue.id)
-              : await loadAllTransactions()
+
+            await loadTransactionsByEmployee(newValue.id)
           }}
         />
 
@@ -78,11 +77,7 @@ export function App() {
           {transactions !== null && (
             <button
               className="RampButton"
-              disabled={
-                paginatedTransactionsUtils.loading || paginatedTransactions?.nextPage == null
-                  ? true
-                  : false
-              }
+              disabled={paginatedTransactionsUtils.loading}
               onClick={async () => {
                 await loadAllTransactions()
               }}

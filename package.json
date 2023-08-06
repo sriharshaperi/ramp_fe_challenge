@@ -1,5 +1,5 @@
 {
-  "name": "ramp-fe-challenge-peri",
+  "name": "ramp-fe-challenge",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -34,16 +34,14 @@
     ]
   },
   "devDependencies": {
+    "@playwright/test": "^1.32.1",
     "@types/jest": "^29.2.4",
     "@types/node": "^18.11.15",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "codesandbox": "^2.2.3",
-    "prettier": "^2.8.1"
-  },
-  "description": "Welcome to Ramp's frontend interview challenge.",
-  "main": "index.js",
-  "author": "",
-  "license": "ISC",
-  "keywords": []
+    "dotenv": "^16.0.3",
+    "prettier": "^2.8.1",
+    "wait-on": "^7.0.1"
+  }
 }
