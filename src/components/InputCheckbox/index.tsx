@@ -9,7 +9,6 @@ export const InputCheckbox: InputCheckboxComponent = ({
   onChange,
 }) => {
   const { current: inputId } = useRef(`RampInputCheckbox-${id}`);
-
   return (
     <div className="RampInputCheckbox--container" data-testid={inputId}>
       <label

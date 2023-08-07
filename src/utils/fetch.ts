@@ -104,7 +104,6 @@ function mockApiLogger({
     "color: #717171",
     getTitleColor()
   );
-  console.log(data);
 
   function getTitleColor() {
     if (type === "error") {

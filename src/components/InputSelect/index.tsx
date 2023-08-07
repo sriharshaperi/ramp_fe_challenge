@@ -54,8 +54,6 @@ export function InputSelect<TItem>({
         getToggleButtonProps,
         inputValue,
       }) => {
-        console.log("Input Value ===> ", inputValue);
-
         const toggleProps = getToggleButtonProps();
         const parsedSelectedItem =
           selectedItem === null ? null : parseItem(selectedItem);
